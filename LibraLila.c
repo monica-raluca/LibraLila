@@ -80,9 +80,9 @@ int main(void)
         // } else if (!strcmp(op, "SHOW")) {
         //     scanf("%d", &criteria);
         //     // show_books(ht/lists?, criteria);
-        // } else if (!strcmp(op, "SORT")) {
-        //     scanf("%d", &criteria);
-        //     sort_preferences(preferences, criteria);
+        } else if (!strcmp(op, "SORT")) {
+            scanf("%d", &criteria);
+            sort_preferences(preferences, criteria);
         } else if (!strcmp(op, "HELP")) {
             show_instructions();
         }

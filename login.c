@@ -82,3 +82,39 @@ void remove_preferences(linked_list_t *preferences, char *isbn)
         cursor = cursor->next;
     }
 }
+
+// sort_by_author(linked_list_t *preferences)
+// {
+//     ll_node_t *cursor = preferences->head, *prev = NULL;
+//     for (int i = 0; i < preferences->size - 1; i++) {
+//         if (cursor->data->authors - cursor->next->data->authors > 0)
+//             cursor->next = cursor->next->next;
+//     }
+// }
+
+// void sort_by_date(linked_list_t *preferences)
+// {
+//     ll_node_t *cursor = preferences->head, *prev = NULL;
+//     for (int i = 0; i < preferences->size - 1; i++)
+//         if (cursor->data->published_year - cursor->data->published_year > 0)
+//             if (!i)
+//                 preferences->head = 
+// }
+
+void sort_preferences(linked_list_t *preferences, int criteria)
+{
+    if (criteria == 0) {
+        // sort_by_author(linked_list_t preferences);
+    } else if (criteria == 1) {
+        // sort_by_title(linked_list_t preferences);
+    } else if (criteria == 2) {
+        // sort_by_genre(linked_list_t preferences);
+    } else if (criteria == 3) {
+        // sort_by_date(linked_list_t preferences);
+    } else if (criteria == 4) {
+        // sort_by_rating(linked_list_t preferences);
+    } else {
+        printf("Invalid criteria\n");
+        return;
+    }
+}

@@ -31,7 +31,8 @@ void print_preferences(linked_list_t *preferences);
 
 /*
  * Procedura ce primeste ca parametru lista de preferinte a unui utilizator si
- * un pointer catre datele despre cartea dorita si o adauga in lista sa.
+ * un pointer catre datele despre cartea dorita si o adauga in lista sa pe prima
+ * pozitie.
  */
 void add_preferences(hashtable_t *ht_books, linked_list_t *preferences, char *isbn);
 
@@ -40,3 +41,9 @@ void add_preferences(hashtable_t *ht_books, linked_list_t *preferences, char *is
  * isbn-ul unei carti pe care doreste sa o adauge in lista de preferinte
  */
 void remove_preferences(linked_list_t *preferences, char *isbn);
+
+/*
+ * Procedura ce primeste ca parametri lista de preferinte si criteriul dupa
+ * care utilizatorul doreste sa le sorteze in lista sa
+ */
+void sort_preferences(linked_list_t *preferences, int criteria);
