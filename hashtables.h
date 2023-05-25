@@ -2,9 +2,6 @@
 #ifndef HASHTABLE_H_
 #define HASHTABLE_H_
 
-#define MAX_STRING_SIZE	5000
-#define HMAX 1000
-
 #include "lists.h"
 
 /** compare_function_strings() - Compares two strings using strcmp

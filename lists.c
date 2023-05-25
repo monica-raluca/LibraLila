@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #include "lists.h"
 
 linked_list_t *ll_create(unsigned int data_size)

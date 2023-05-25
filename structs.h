@@ -1,4 +1,4 @@
-#define MAX_STRING_SIZE 5000
+#include "utils.h"
 
 typedef struct ll_node_t
 {

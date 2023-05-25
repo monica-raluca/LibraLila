@@ -1,7 +1,7 @@
-#include "login.h"
+#include "books_management.h"
 
 // adaugam totul intr-un fisier si facem afisarea direct din fisier
-show_instructions()
+void show_instructions()
 {
     FILE *fhelp = fopen("/data/help.txt", "r");
     char *buffer[MAX_STRING_SIZE];
