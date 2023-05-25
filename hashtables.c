@@ -58,7 +58,15 @@ void ht_key_val_free_function(void *data) {
 void mm_key_val_free_function(void *data) {
     free(((info *)data)->key);
     free(((info *)data)->pass);
-    ll_free(((linked_list_t **)(((info *)data)->value)));
+    linked_list_t *list = ((linked_list_t *)((info *)data)->value);
+    // ll_free(((linked_list_t **)(((info *)data)->value)));
+    ll_node_t *cursor = list->head, *prev = NULL;
+    for (int i = 0; i < list->size; i++) {
+        prev = cursor;
+        free(cursor->data);
+        free(prev);
+        cursor = cursor->next;
+    }
     free(((info *)data)->value);
 }
 

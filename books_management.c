@@ -71,36 +71,107 @@ void rate_book(hashtable_t *ht_books, char *isbn)
     }
 }
 
-void show_author(hashtable_t *ht_books)
+void show_authors(hashtable_t *ht_books, char *authors)
 {
-    char author[MAX_STRING_SIZE];
-    printf("hello\n");
-    fgets(author, MAX_STRING_SIZE, stdin);
     for (unsigned int i = 0; i < ht_books->hmax; i++) {
-        linked_list_t *bucket = ht_books->buckets[i];
-        ll_node_t *current = bucket->head;
-        while (current) {
-            book *current_book = (book *)current->data;
-            if (strcmp(current_book->authors, author) == 0) {
-                print_book(current_book);
-            }
-            current = current->next;
+        linked_list_t *list = ht_books->buckets[i];
+        ll_node_t *cursor = list->head;
+        for (unsigned int j = 0; j < list->size; j++) {
+            book *book_info = (book *)(((info *)cursor->data)->value);
+            if (!strcmp(book_info->authors, authors))
+                print_book(book_info);
+            cursor = cursor->next;
         }
     }
 }
 
-void show_books(hashtable_t *ht_books, int criteria)
+void show_title(hashtable_t *ht_books, char *title)
 {
+    for (unsigned int i = 0; i < ht_books->hmax; i++) {
+        linked_list_t *list = ht_books->buckets[i];
+        ll_node_t *cursor = list->head;
+        for (unsigned int j = 0; j < list->size; j++) {
+            book *book_info = (book *)(((info *)cursor->data)->value);
+            if (!strcmp(book_info->title, title))
+                print_book(book_info);
+            cursor = cursor->next;
+        }
+    }
+}
+
+void show_genre(hashtable_t *ht_books, char *genre)
+{
+    for (unsigned int i = 0; i < ht_books->hmax; i++) {
+        linked_list_t *list = ht_books->buckets[i];
+        ll_node_t *cursor = list->head;
+        for (unsigned int j = 0; j < list->size; j++) {
+            book *book_info = (book *)(((info *)cursor->data)->value);
+            if (!strcmp(book_info->genre, genre))
+                print_book(book_info);
+            cursor = cursor->next;
+        }
+    }
+}
+
+void show_date(hashtable_t *ht_books, int start, int end)
+{
+    for (unsigned int i = 0; i < ht_books->hmax; i++) {
+        linked_list_t *list = ht_books->buckets[i];
+        ll_node_t *cursor = list->head;
+        for (unsigned int j = 0; j < list->size; j++) {
+            book *book_info = (book *)(((info *)cursor->data)->value);
+            if (book_info->published_year >= start && book_info->published_year <= end)
+                print_book(book_info);
+            cursor = cursor->next;
+        }
+    }
+}
+
+void show_rating(hashtable_t *ht_books, float start, float end)
+{
+    for (unsigned int i = 0; i < ht_books->hmax; i++) {
+        linked_list_t *list = ht_books->buckets[i];
+        ll_node_t *cursor = list->head;
+        for (unsigned int j = 0; j < list->size; j++) {
+            book *book_info = (book *)(((info *)cursor->data)->value);
+            if (book_info->rating >= start && book_info->rating <= end)
+                print_book(book_info);
+            cursor = cursor->next;
+        }
+    }
+}
+
+void show_books(hashtable_t *ht_books)
+{
+    int criteria;
+    scanf("%d ", &criteria);
     if (criteria == 0) {
-        show_author(ht_books);
+        char *authors = calloc(MAX_STRING_SIZE, sizeof(char));
+        fgets(authors, MAX_STRING_SIZE, stdin);
+        authors[strlen(authors) - 1] = '\0';
+        show_authors(ht_books, authors);
+        free(authors);
     } else if (criteria == 1) {
-        // sort_by_title(linked_list_t preferences);
+        char *title = calloc(MAX_STRING_SIZE, sizeof(char));
+        fgets(title, MAX_STRING_SIZE, stdin);
+        title[strlen(title) - 1] = '\0';
+        show_title(ht_books, title);
+        free(title);
     } else if (criteria == 2) {
-        // sort_by_genre(linked_list_t preferences);
+        char *genre = calloc(MAX_STRING_SIZE, sizeof(char));
+        fgets(genre, MAX_STRING_SIZE, stdin);
+        genre[strlen(genre) - 1] = '\0';
+        printf("%s\n", genre);
+        show_genre(ht_books, genre);
+        free(genre);
     } else if (criteria == 3) {
-        // sort_by_date(linked_list_t preferences);
+        int start, end;
+        scanf("%d %d", &start, &end);
+        show_date(ht_books, start, end);
     } else if (criteria == 4) {
-        // sort_by_rating(linked_list_t preferences);
+        float start, end;
+        scanf("%f %f", &start, &end);
+        show_rating(ht_books, start, end);
     } else {
         printf("Invalid criteria\n");
         return;

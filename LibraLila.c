@@ -59,8 +59,7 @@ int main(void)
         } else if (!strcmp(op, "PRINT")) {
             print_preferences(preferences);
         } else if (!strcmp(op, "SHOW")) {
-            scanf("%d", &criteria);
-            show_books(ht_books, criteria);
+            show_books(ht_books);
         } else if (!strcmp(op, "SORT")) {
             scanf("%d", &criteria);
             sort_preferences(preferences, criteria);
