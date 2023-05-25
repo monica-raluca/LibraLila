@@ -50,7 +50,11 @@ void remove_preferences(linked_list_t *preferences, char *isbn);
  */
 void sort_preferences(linked_list_t *preferences, int criteria);
 
-ll_node_t *merge_sort(ll_node_t *head);
+ll_node_t *merge_sort(ll_node_t *head, int criteria)
 ll_node_t *middle(ll_node_t *head);
-ll_node_t *merge(ll_node_t *first, ll_node_t *second);
-void sort_by_author(linked_list_t *preferences);
+ll_node_t* merge(ll_node_t* firstNode, ll_node_t* secondNode, int criteria)
+void sort_by_author(linked_list_t *preferences, int criteria)
+void sort_by_title(preferences, criteria);
+void sort_by_genre(preferences, criteria);
+void sort_by_date(preferences, criteria);
+void sort_by_rating(preferences, criteria);

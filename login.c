@@ -140,37 +140,29 @@ void remove_preferences(linked_list_t *preferences, char *isbn)
 //                 preferences->head = 
 // }
 
-ll_node_t *merge(ll_node_t *first, ll_node_t *second)
+ll_node_t* merge(ll_node_t* firstNode, ll_node_t* secondNode, int criteria)
 {
-    ll_node_t *merged = calloc(1, sizeof(ll_node_t *));
-    ll_node_t *temp = calloc(1, sizeof(ll_node_t *));
+    ll_node_t* merged = NULL;
+    ll_node_t** temp = &merged;
 
-    memcpy(temp, merged, sizeof(ll_node_t));
-
-    while(first && second) {
-        if(strcmp(((book *)first->data)->authors, ((book *)second->data)->authors) <= 0) {
-            temp->next = first;
-            first = first->next;
+    while (firstNode != NULL && secondNode != NULL) {
+        if (strcmp(((book*)firstNode->data)->authors, ((book*)secondNode->data)->authors) <= 0) {
+            *temp = firstNode;
+            firstNode = firstNode->next;
         } else {
-            temp->next = second;
-            second = second->next;
+            *temp = secondNode;
+            secondNode = secondNode->next;
         }
-        temp = temp->next;
+        temp = &((*temp)->next);
     }
 
-    while(first) {
-        temp->next = first;
-        first = first->next;
-        temp = temp->next;
-    }
+    if (firstNode)
+        *temp = firstNode;
 
-    while(second) {
-        temp->next = second;
-        second = second->next;
-        temp = temp->next;
-    }
+    if (secondNode)
+        *temp = secondNode;
 
-    return merged->next;
+    return merged;
 }
 
 ll_node_t *middle(ll_node_t *head)
@@ -185,7 +177,7 @@ ll_node_t *middle(ll_node_t *head)
     return slow;
 }
 
-ll_node_t *merge_sort(ll_node_t *head)
+ll_node_t *merge_sort(ll_node_t *head, int criteria)
 {
     if (!head->next) 
         return head;
@@ -196,32 +188,27 @@ ll_node_t *merge_sort(ll_node_t *head)
     second_head = mid->next;
     mid->next = NULL;
 
-    ll_node_t *final = merge(merge_sort(head), merge_sort(second_head));
+    ll_node_t *final = merge(merge_sort(head, criteria), merge_sort(second_head, criteria), criteria);
     return final;
 }
 
-void sort_by_author(linked_list_t *preferences)
+void sort_by_author(linked_list_t *preferences, int criteria)
 {
-    // ll_node_t *cursor = preferences->head, *prev = NULL;
-    // for (int i = 0; i < preferences->size - 1; i++) {
-    //     if (cursor->data->authors - cursor->next->data->authors > 0)
-    //         cursor->next = cursor->next->next;
-    // }
-    preferences->head = merge_sort(preferences->head);
+    preferences->head = merge_sort(preferences->head, criteria);
 }
 
 void sort_preferences(linked_list_t *preferences, int criteria)
 {
     if (criteria == 0) {
-        sort_by_author(preferences);
+        sort_by_author(preferences, criteria);
     } else if (criteria == 1) {
-        // sort_by_title(linked_list_t preferences);
+        sort_by_title(preferences, criteria);
     } else if (criteria == 2) {
-        // sort_by_genre(linked_list_t preferences);
+        sort_by_genre(preferences, criteria);
     } else if (criteria == 3) {
-        // sort_by_date(linked_list_t preferences);
+        sort_by_date(preferences, criteria);
     } else if (criteria == 4) {
-        // sort_by_rating(linked_list_t preferences);
+        sort_by_rating(preferences, criteria);
     } else {
         printf("Invalid criteria\n");
         return;
