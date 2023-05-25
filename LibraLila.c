@@ -106,9 +106,9 @@ int main(void)
             remove_preferences(preferences, isbn);
         } else if (!strcmp(op, "PRINT")) {
             print_preferences(preferences);
-        // } else if (!strcmp(op, "SHOW")) {
-        //     scanf("%d", &criteria);
-        //     // show_books(ht/lists?, criteria);
+        } else if (!strcmp(op, "SHOW")) {
+            scanf("%d", &criteria);
+            show_books(ht_books, criteria);
         } else if (!strcmp(op, "SORT")) {
             scanf("%d", &criteria);
             sort_preferences(preferences, criteria);

@@ -70,3 +70,39 @@ void rate_book(hashtable_t *ht_books, char *isbn)
         ((book *)temp->data)->rating_count++;
     }
 }
+
+void show_author(hashtable_t *ht_books)
+{
+    char author[MAX_STRING_SIZE];
+    printf("hello\n");
+    fgets(author, MAX_STRING_SIZE, stdin);
+    for (unsigned int i = 0; i < ht_books->hmax; i++) {
+        linked_list_t *bucket = ht_books->buckets[i];
+        ll_node_t *current = bucket->head;
+        while (current) {
+            book *current_book = (book *)current->data;
+            if (strcmp(current_book->authors, author) == 0) {
+                print_book(current_book);
+            }
+            current = current->next;
+        }
+    }
+}
+
+void show_books(hashtable_t *ht_books, int criteria)
+{
+    if (criteria == 0) {
+        show_author(ht_books);
+    } else if (criteria == 1) {
+        // sort_by_title(linked_list_t preferences);
+    } else if (criteria == 2) {
+        // sort_by_genre(linked_list_t preferences);
+    } else if (criteria == 3) {
+        // sort_by_date(linked_list_t preferences);
+    } else if (criteria == 4) {
+        // sort_by_rating(linked_list_t preferences);
+    } else {
+        printf("Invalid criteria\n");
+        return;
+    }
+}
