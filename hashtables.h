@@ -1,6 +1,5 @@
-/* Copyright 2023 Birladeanu Raluca-Monica 315CA */
-#ifndef HASHTABLE_H_
-#define HASHTABLE_H_
+#ifndef HASHTABLES_H_
+#define HASHTABLES_H_
 
 #include "lists.h"
 
@@ -87,4 +86,4 @@ unsigned int hash_function_int(void *a);
 unsigned int hash_function_float(void* a);
 void print_book(book *desired_book);
 
-#endif /* HASHTABLE_H_ */
+#endif /* HASHTABLES_H_ */

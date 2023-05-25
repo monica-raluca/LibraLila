@@ -21,20 +21,17 @@ typedef struct book {
 
 typedef struct info info;
 struct info {
-	void *key;
-	void *value;
+	void *key; // usernames
+	void *value; // preference list
+	void *pass; // hashed password
 };
 
 typedef struct hashtable_t hashtable_t;
 struct hashtable_t {
-	linked_list_t **buckets; /* Array de liste simplu-inlantuite. */
-	/* Nr. total de noduri existente curent in toate bucket-urile. */
+	linked_list_t **buckets;
 	unsigned int size;
-	unsigned int hmax; /* Nr. de bucket-uri. */
-	/* (Pointer la) Functie pentru a calcula valoarea hash asociata cheilor. */
+	unsigned int hmax;
 	unsigned int (*hash_function)(void*);
-	/* (Pointer la) Functie pentru a compara doua chei. */
 	int (*compare_function)(void*, void*);
-	/* (Pointer la) Functie pentru a elibera memoria ocupata de cheie si valoare. */
 	void (*key_val_free_function)(void*);
 };
