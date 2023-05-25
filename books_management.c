@@ -2,11 +2,11 @@
 
 void print_book(book *desired_book)
 {
+    printf("ISBN: %s\n", desired_book->isbn);
     printf("Title: %s\n", desired_book->title);
     printf("Authors: %s\n", desired_book->authors);
-    printf("ISBN: %s\n", desired_book->isbn);
     printf("Published Year: %d\n", desired_book->published_year);
-    printf("Rating: %f\n", desired_book->rating);
+    printf("Rating: %.2f\n", desired_book->rating);
     printf("Rating Count: %d\n", desired_book->rating_count);
     printf("Page Count: %d\n", desired_book->page_count);
     printf("Genre: %s\n", desired_book->genre);
@@ -26,24 +26,12 @@ void load_csv(hashtable_t *ht_books) {
     fclose(input);
 }
 
-void print_isbn(hashtable_t *ht_books)
+void print_isbn(hashtable_t *ht_books, char *isbn)
 {
-    char isbn[MAX_STRING_SIZE];
-    linked_list_t *book_list;
-    scanf("%s", isbn);
-    // getchar();
-    // printf("after getchar");
-    // fgets(isbn, MAX_STRING_SIZE, stdin);
-    // isbn[strlen(isbn) - 1] = '\0';
-    // printf("[%s]", isbn);
+    info *book_info;
     if (ht_has_key(ht_books, isbn)) {
-        // printf("hewo");
-		book_list = ht_get(ht_books, isbn);
-        ll_node_t* temp = book_list->head;
-        while(temp)
-        {
-            print_book(((book *)temp->data));
-            temp = temp->next;
-        }
+		book_info = ht_get(ht_books, isbn);
+        ll_node_t* temp = ((linked_list_t *)book_info->value)->head;
+        print_book((book *)temp->data);
     }
 }

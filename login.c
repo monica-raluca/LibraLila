@@ -16,7 +16,42 @@ linked_list_t *create_account(hashtable_t *mm_users, char *key, char *pass)
 {
     unsigned int hashed_pass = hash_function_string(pass);
     mm_put(mm_users, key, strlen(key), pass, sizeof(pass));
-    hashed_pass = mm_users->hash_function(key) % ht->hmax;
+    hashed_pass = mm_users->hash_function(key) % mm_users->hmax;
     return mm_users->buckets[hashed_pass];
     // pentru viitor, adauga userii noi in user_database
+}
+
+linked_list_t *check_login_data(hashtable_t *mm_users, char *key, char *pass)
+{
+    unsigned int hashed_pass = hash_function_string(pass);
+    info *user_info = ht_get(mm_users, key);
+    if (!user_info) {
+        printf("Inexistent user! Try again!\n");
+        return NULL;
+    } else if (*(int *)user_info->pass != hashed_pass) {
+        printf("Wrong credentials! Try again!\n");
+        return NULL;
+    }
+    return (linked_list_t *)user_info->value;
+}
+
+void add_preferences(hashtable_t *ht_books, linked_list_t *preferences, char *isbn)
+{
+    info *book_info = NULL;
+    if (ht_has_key(ht_books, isbn)) {
+        book_info = ht_get(ht_books, isbn);
+        print_book((book *)(((linked_list_t *)book_info->value)->head->data));
+        ll_add_nth_node(preferences, 0, ((linked_list_t *)book_info->value)->head->data);
+    } else {
+        printf("ISBN is not associated with an existent book\n");
+    }
+}
+
+void print_preferences(linked_list_t *preferences)
+{
+    ll_node_t *cursor = preferences->head;
+    for (int i = 0; i < preferences->size; i++) {
+        print_book((book *)cursor->data);
+        cursor = cursor->next;
+    }
 }

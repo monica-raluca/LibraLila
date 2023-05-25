@@ -103,7 +103,7 @@ void *ht_get(hashtable_t *ht, void *key)
     {
         info* current_info = (info*) node->data;
         if(ht->compare_function(key, current_info->key) == 0)
-            return current_info->value;
+            return current_info;
         node = node->next;
     }
     return NULL;

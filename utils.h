@@ -3,8 +3,8 @@
 #include <string.h>
 #include <errno.h>
 
-#define MAX_STRING_SIZE	5096
-#define HMAX 1000
+#define MAX_STRING_SIZE	4096
+#define HMAX 8192
 #define DIE(assertion, call_description)				\
 	do {								\
 		if (assertion) {					\

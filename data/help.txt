@@ -6,8 +6,8 @@ SHOW [criteria_no] [criteria] - Show all the books in the library based on the f
     0 - Author [author_name]
     1 - Title [book_title]
     2 - Genre [book_genre]
-    3 - Release date between [day.month.year] [date.month.year]
-    4 - Rating between [rating1] [rating2]
+    3 - Release date between [start_year] [end_year]
+    4 - Rating between [min_rating] [max_rating]
 SORT [criteria_no] - Sort the books in the list of preferences by the following criterias:
     0 - Author
     1 - Title
