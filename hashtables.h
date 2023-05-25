@@ -66,6 +66,19 @@ void *ht_get(hashtable_t *ht, void *key);
 void ht_put(hashtable_t *ht, void *key, unsigned int key_size,
 	void *value, unsigned int value_size);
 
+/** mm_put() - Places a key-value-pass pair into the multimap
+ *
+ * @arg1: Multimap in which we want to insert.
+ * @arg2: Key represented as a string.
+ * @arg3: Key size.
+ * @arg4: Value represented as a string.
+ * @arg5: Value size.
+ * @arg6: Hashed password.
+ * @arg7: Password size.
+ */
+void mm_put(hashtable_t *ht, void *key, unsigned int key_size,
+	void *value, unsigned int value_size, void *pass, unsigned int pass_size);
+
 /** ht_remove_entry() - Removes an entry from the hashtable
  *
  * @arg1: Hashtable from which we want to remove the entry.
@@ -79,6 +92,13 @@ void ht_remove_entry(hashtable_t *ht, void *key);
  * @arg1: Hashtable we want to free.
  */
 void ht_free(hashtable_t *ht);
+
+/** mm_free() - Frees all the entries from the multimap.
+ * 				Afterwards frees the multimap itself.
+ *
+ * @arg1: Multimap we want to free.
+ */
+void mm_free(hashtable_t *ht);
 
 int compare_function_ints(void *a, void *b);
 int compare_function_floats(void *a, void *b);
