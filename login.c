@@ -122,31 +122,24 @@ void remove_preferences(linked_list_t *preferences, char *isbn)
     }
 }
 
-// sort_by_author(linked_list_t *preferences)
-// {
-//     ll_node_t *cursor = preferences->head, *prev = NULL;
-//     for (int i = 0; i < preferences->size - 1; i++) {
-//         if (cursor->data->authors - cursor->next->data->authors > 0)
-//             cursor->next = cursor->next->next;
-//     }
-// }
-
-// void sort_by_date(linked_list_t *preferences)
-// {
-//     ll_node_t *cursor = preferences->head, *prev = NULL;
-//     for (int i = 0; i < preferences->size - 1; i++)
-//         if (cursor->data->published_year - cursor->data->published_year > 0)
-//             if (!i)
-//                 preferences->head = 
-// }
-
 ll_node_t* merge(ll_node_t* firstNode, ll_node_t* secondNode, int criteria)
 {
     ll_node_t* merged = NULL;
     ll_node_t** temp = &merged;
-
+    int compare_result;
+    float compare_floats;
     while (firstNode != NULL && secondNode != NULL) {
-        if (strcmp(((book*)firstNode->data)->authors, ((book*)secondNode->data)->authors) <= 0) {
+        if (criteria == 0)
+            compare_result = strcmp(((book*)firstNode->data)->authors, ((book*)secondNode->data)->authors);
+        else if (criteria == 1)
+            compare_result = strcmp(((book*)firstNode->data)->title, ((book*)secondNode->data)->title);
+        else if (criteria == 2)
+            compare_result = strcmp(((book*)firstNode->data)->genre, ((book*)secondNode->data)->genre);
+        else if (criteria == 3)
+            compare_result = ((book*)firstNode->data)->published_year - ((book*)secondNode->data)->published_year;
+        else if (criteria == 4) 
+            compare_floats = ((book*)firstNode->data)->rating - ((book*)secondNode->data)->rating;
+        if ((compare_result <= 0 && criteria < 4) || (compare_floats <= 0 && criteria == 4)) {
             *temp = firstNode;
             firstNode = firstNode->next;
         } else {
@@ -192,25 +185,16 @@ ll_node_t *merge_sort(ll_node_t *head, int criteria)
     return final;
 }
 
-void sort_by_author(linked_list_t *preferences, int criteria)
+void sort(linked_list_t *preferences, int criteria)
 {
     preferences->head = merge_sort(preferences->head, criteria);
 }
 
 void sort_preferences(linked_list_t *preferences, int criteria)
 {
-    if (criteria == 0) {
-        sort_by_author(preferences, criteria);
-    } else if (criteria == 1) {
-        sort_by_title(preferences, criteria);
-    } else if (criteria == 2) {
-        sort_by_genre(preferences, criteria);
-    } else if (criteria == 3) {
-        sort_by_date(preferences, criteria);
-    } else if (criteria == 4) {
-        sort_by_rating(preferences, criteria);
-    } else {
-        printf("Invalid criteria\n");
+    if(criteria < 0 || criteria > 4) {
+        printf("Invalid criteria!\n");
         return;
     }
+    sort(preferences, criteria);
 }

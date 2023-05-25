@@ -13,7 +13,7 @@ SORT [criteria_no] - Sort the books in the list of preferences by the following 
     1 - Title
     2 - Genre (Alphabetically)
     3 - Release date (Low to High)
-    4 - Ratings
+    4 - Ratings (Low to High)
 BOOK_INFO [isbn] - View all the information stored about a book
 DESCRIPTION [isbn] - View the description of a book with a particular isbn
 DESCRIBE [isbn] - Add a different description to the book with a specific isbn
