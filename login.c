@@ -140,10 +140,80 @@ void remove_preferences(linked_list_t *preferences, char *isbn)
 //                 preferences->head = 
 // }
 
+ll_node_t *merge(ll_node_t *first, ll_node_t *second)
+{
+    ll_node_t *merged = calloc(1, sizeof(ll_node_t *));
+    ll_node_t *temp = calloc(1, sizeof(ll_node_t *));
+
+    memcpy(temp, merged, sizeof(ll_node_t));
+
+    while(first && second) {
+        if(strcmp(((book *)first->data)->authors, ((book *)second->data)->authors) <= 0) {
+            temp->next = first;
+            first = first->next;
+        } else {
+            temp->next = second;
+            second = second->next;
+        }
+        temp = temp->next;
+    }
+
+    while(first) {
+        temp->next = first;
+        first = first->next;
+        temp = temp->next;
+    }
+
+    while(second) {
+        temp->next = second;
+        second = second->next;
+        temp = temp->next;
+    }
+
+    return merged->next;
+}
+
+ll_node_t *middle(ll_node_t *head)
+{
+    ll_node_t *slow = head;
+    ll_node_t *fast = head->next;
+
+    while (!slow->next && (!fast && !fast->next)) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}
+
+ll_node_t *merge_sort(ll_node_t *head)
+{
+    if (!head->next) 
+        return head;
+    ll_node_t *mid = calloc(1, sizeof(ll_node_t *));
+    ll_node_t *second_head = calloc(1, sizeof(ll_node_t *));
+
+    mid = middle(head);
+    second_head = mid->next;
+    mid->next = NULL;
+
+    ll_node_t *final = merge(merge_sort(head), merge_sort(second_head));
+    return final;
+}
+
+void sort_by_author(linked_list_t *preferences)
+{
+    // ll_node_t *cursor = preferences->head, *prev = NULL;
+    // for (int i = 0; i < preferences->size - 1; i++) {
+    //     if (cursor->data->authors - cursor->next->data->authors > 0)
+    //         cursor->next = cursor->next->next;
+    // }
+    preferences->head = merge_sort(preferences->head);
+}
+
 void sort_preferences(linked_list_t *preferences, int criteria)
 {
     if (criteria == 0) {
-        // sort_by_author(linked_list_t preferences);
+        sort_by_author(preferences);
     } else if (criteria == 1) {
         // sort_by_title(linked_list_t preferences);
     } else if (criteria == 2) {
