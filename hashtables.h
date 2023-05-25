@@ -25,8 +25,9 @@ unsigned int hash_function_string(void *a);
  *
  * @arg1: data we have to free
  */
-void key_val_free_function(void *data);
+void ht_key_val_free_function(void *data);
 
+void mm_key_val_free_function(void *data);
 /** ht_create() - Initializes the memory for a struct hashtable
  * 				  While also initializing all of its values
  *
@@ -71,13 +72,11 @@ void ht_put(hashtable_t *ht, void *key, unsigned int key_size,
  * @arg1: Multimap in which we want to insert.
  * @arg2: Key represented as a string.
  * @arg3: Key size.
- * @arg4: Value represented as a string.
- * @arg5: Value size.
- * @arg6: Hashed password.
- * @arg7: Password size.
+ * @arg4: Hashed password.
+ * @arg5: Password size.
  */
-void mm_put(hashtable_t *ht, void *key, unsigned int key_size,
-	void *value, unsigned int value_size, void *pass, unsigned int pass_size);
+void mm_put(hashtable_t *ht, void *key, unsigned int key_size, 
+			void *pass, unsigned int pass_size);
 
 /** ht_remove_entry() - Removes an entry from the hashtable
  *

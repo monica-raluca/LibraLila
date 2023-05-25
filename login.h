@@ -4,7 +4,7 @@
  * Procedura pentru incarcarea fisierului/fisierelor cu date de conectare si
  * initializarea listelor de preferinte ale utilizatorilor.
  */
-void load_login_data(FILE *fin);
+void load_login_data(hashtable_t *mm_users);
 
 /*
  * Functie care primeste ca parametru o cheie (parola) si o valoare (username)

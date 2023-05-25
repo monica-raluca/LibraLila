@@ -50,7 +50,12 @@ unsigned int hash_function_string(void *a)
 	return hash;
 }
 
-void key_val_free_function(void *data) {
+void ht_key_val_free_function(void *data) {
+    free(((info*)data)->key);
+    free(((info*)data)->value);
+}
+
+void mm_key_val_free_function(void *data) {
     free(((info*)data)->key);
     for(unsigned int i = 0; 
     i < (((linked_list_t*)((info*)data)->value)->size); i++)
@@ -138,8 +143,7 @@ void ht_put(hashtable_t *ht, void *key, unsigned int key_size,
     }
 }
 
-void mm_put(hashtable_t *ht, void *key, unsigned int key_size,
-	void *value, unsigned int value_size, void *pass, unsigned int pass_size)
+void mm_put(hashtable_t *ht, void *key, unsigned int key_size, void *pass, unsigned int pass_size)
 {
     unsigned int index = ht->hash_function(key) % ht->hmax;
     linked_list_t* bucket = ht->buckets[index];
@@ -191,7 +195,7 @@ void ht_remove_entry(hashtable_t *ht, void *key)
         info* current_info = (info*) node->data;
         if(ht->compare_function(key, current_info->key) == 0)
         {
-            key_val_free_function(current_info);
+            ht_key_val_free_function(current_info);
             ll_remove_nth_node(ht->buckets[index], count);
             break;
         }
