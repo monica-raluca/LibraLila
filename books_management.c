@@ -35,3 +35,38 @@ void print_isbn(hashtable_t *ht_books, char *isbn)
         print_book((book *)temp->data);
     }
 }
+
+void print_description(hashtable_t *ht_books, char *isbn)
+{
+    info *book_info;
+    if (ht_has_key(ht_books, isbn)) {
+		book_info = ht_get(ht_books, isbn);
+        ll_node_t* temp = ((linked_list_t *)book_info->value)->head;
+        printf("%s\n", ((book *)temp->data)->description);
+    }
+}
+
+void change_description(hashtable_t *ht_books, char *isbn)
+{
+    char new_description[MAX_STRING_SIZE];
+    info *book_info;
+    if (ht_has_key(ht_books, isbn)) {
+		book_info = ht_get(ht_books, isbn);
+        ll_node_t* temp = ((linked_list_t *)book_info->value)->head;
+        fgets(new_description, MAX_STRING_SIZE, stdin);
+        memcpy(((book *)temp->data)->description, new_description, MAX_STRING_SIZE);
+    }
+}
+
+void rate_book(hashtable_t *ht_books, char *isbn)
+{
+    float new_rating;
+    info *book_info;
+    if (ht_has_key(ht_books, isbn)) {
+		book_info = ht_get(ht_books, isbn);
+        ll_node_t* temp = ((linked_list_t *)book_info->value)->head;
+        scanf("%f", &new_rating);
+        ((book *)temp->data)->rating_count++;
+        ((book *)temp->data)->rating = ((book *)temp->data)->rating / ((book *)temp->data)->rating_count;
+    }
+}

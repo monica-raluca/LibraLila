@@ -86,16 +86,16 @@ int main(void)
         } else if (!strcmp(op, "HELP")) {
             show_instructions();
         }
-        // } else if (!strcmp(op, "DESCRIPTION")) {
-        //     scanf("%s", isbn);
-        //     // print_description(ht/lists, isbn);
-        // } else if (!strcmp(op, "DESCRIBE")) {
-        //     scanf("%s", isbn);
-        //     // change_description(ht/lists, isbn);
-        // } else if (!strcmp(op, "RATE")) {
-        //     scanf("%s", isbn);
-        //     // rate_book(ht/lists, isbn);
-        // }
+         else if (!strcmp(op, "DESCRIPTION")) {
+            scanf("%s", isbn);
+            print_description(ht_books, isbn);
+        } else if (!strcmp(op, "DESCRIBE")) {
+            scanf("%s", isbn);
+            change_description(ht_books, isbn);
+        } else if (!strcmp(op, "RATE")) {
+            scanf("%s", isbn);
+            rate_book(ht_books, isbn);
+        }
     }
     return 0;
 }
