@@ -109,8 +109,42 @@ void *ht_get(hashtable_t *ht, void *key)
     return NULL;
 }
 
+// void ht_put(hashtable_t *ht, void *key, unsigned int key_size,
+// 	void *value, unsigned int value_size)
+// {
+//     unsigned int index = ht->hash_function(key) % ht->hmax;
+//     linked_list_t* bucket = ht->buckets[index];
+//     ll_node_t* node = bucket->head;
+//     info* new_info = malloc(sizeof(info));
+
+//     new_info->key = malloc(key_size);
+//     memcpy(new_info->key, key, key_size);
+//     new_info->value = malloc(value_size);
+//     memcpy(new_info->value, value, value_size);
+
+//     if(ht_has_key(ht, key) == 0)
+//     {
+//         ll_add_nth_node(bucket, 0, new_info);
+//         ht->size++;
+//     }
+//     else
+//     {
+//         while(node)
+//         {
+//             info* current_info = (info*) node->data;
+//             if(ht->compare_function(key, current_info->key) == 0)
+//             {
+//                 free(current_info->value);
+//                 current_info->value = malloc(value_size);
+//                 memcpy(current_info->value, new_info->value, value_size);
+//             }
+//             node = node->next;
+//         }
+//     }
+// }
+
 void ht_put(hashtable_t *ht, void *key, unsigned int key_size,
-	void *value, unsigned int value_size)
+    void *value, unsigned int value_size)
 {
     unsigned int index = ht->hash_function(key) % ht->hmax;
     linked_list_t* bucket = ht->buckets[index];
@@ -119,11 +153,13 @@ void ht_put(hashtable_t *ht, void *key, unsigned int key_size,
 
     new_info->key = malloc(key_size);
     memcpy(new_info->key, key, key_size);
-    new_info->value = malloc(value_size);
-    memcpy(new_info->value, value, value_size);
 
     if(ht_has_key(ht, key) == 0)
     {
+        new_info->value = ll_create(sizeof(book));
+        void *added_info = malloc(value_size);
+        memcpy(added_info, value, value_size);
+        ll_add_nth_node(new_info->value, 0, added_info);
         ll_add_nth_node(bucket, 0, new_info);
         ht->size++;
     }
@@ -134,9 +170,10 @@ void ht_put(hashtable_t *ht, void *key, unsigned int key_size,
             info* current_info = (info*) node->data;
             if(ht->compare_function(key, current_info->key) == 0)
             {
-                free(current_info->value);
-                current_info->value = malloc(value_size);
-                memcpy(current_info->value, new_info->value, value_size);
+                void *added_info = malloc(value_size);
+                memcpy(added_info, value, value_size);
+                ll_add_nth_node(current_info->value, 
+                ((linked_list_t*)current_info->value)->size, added_info);
             }
             node = node->next;
         }

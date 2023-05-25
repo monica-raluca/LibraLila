@@ -2,12 +2,13 @@
 
 void show_instructions()
 {
-    FILE *fhelp = fopen("/data/help.txt", "r");
+    FILE *fhelp = fopen("data/help.txt", "r");
     char buffer[MAX_STRING_SIZE];
     for (int i = 1; i <= 19; i++) {
         fgets(buffer, MAX_STRING_SIZE, fhelp);
         puts(buffer);
     }
+    fclose(fhelp);
 }
 
 int main(void)
@@ -20,30 +21,28 @@ int main(void)
     hashtable_t *mm_users = ht_create(HMAX, hash_function_string, compare_function_strings, mm_key_val_free_function);
     hashtable_t *ht_books = ht_create(HMAX, hash_function_string, compare_function_strings, ht_key_val_free_function);
     // DIE(!key || !op || !password || !mm_users || ht_books, "Unable to allocate memory\n");
-    DIE(!ht_books, "books");
-    DIE(!mm_users, "users");
-    DIE(!key, "key");
-    DIE(!op, "op");
-    DIE(!password, "pass");
-    // load la datele de login
+    DIE(!ht_books || !mm_users, "Hashtable memory allocation error");
+    DIE(!key || !op || !password, "Unable to allocate string memory");
+    
     load_login_data(mm_users);
     load_csv(ht_books);
-    // load la carti
-    // blocat in login page pana la introducere unui login valid
+    
     linked_list_t *preferences = NULL;
-    printf("Do you have an account? [Y/N]\n");
-    // while (1) {
-    //     scanf("%s", isbn);
-    //     if (isbn == 'Y')
-    //         break;
-    //     else if (isbn == 'N') {
-    //         printf("New Username:");
-    //         scanf("%s", key);
-    //         printf("New Password:");
-    //         scanf("%s", password);
-    //         preferences = create_account(key, password);
-    //     }
-    // }
+    while (1) {
+        printf("Do you have an account? [Y/N]\n");
+        scanf("%s", isbn);
+        if (isbn[0] == 'Y')
+            break;
+        else if (isbn[0] == 'N') {
+            printf("New Username:");
+            scanf("%s", key);
+            printf("New Password:");
+            scanf("%s", password);
+            // preferences = create_account(key, password);
+            if (preferences)
+                break;
+        }
+    }
     // while (1) {
     //     while (!preferences) {
     //         printf("Username:");
@@ -74,7 +73,7 @@ int main(void)
     //         scanf("%d", &criteria);
     //         sort_preferences(preferences, criteria);
     //     } else if (!strcmp(op, "HELP")) {
-    //         show_instructions();
+            // show_instructions();
     //     } else if (!strcmp(op, "DESCRIPTION")) {
     //         scanf("%s", isbn);
     //         // print_description(ht/lists, isbn);

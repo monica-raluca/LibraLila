@@ -16,12 +16,14 @@ void print_book(book *desired_book)
 void load_csv(hashtable_t *ht_books) {
     book new_book;
     char line[MAX_STRING_SIZE];
-    FILE *input = fopen("/data/books.csv", "r");
+    FILE *input = fopen("data/books.csv", "r");
     fgets(line, MAX_STRING_SIZE, input);
     while(fscanf(input, "%10[^~]~%[^~]~%[^~]~%[^~]~%d~%f~%d~%d~%[^\n]\n",
             new_book.isbn, new_book.title, new_book.authors, new_book.genre, 
-            &new_book.published_year, &new_book.rating, &new_book.page_count, &new_book.rating_count, new_book.description) == 9)
+            &new_book.published_year, &new_book.rating, &new_book.page_count, &new_book.rating_count, new_book.description) == 9) {
         ht_put(ht_books, &new_book.isbn, sizeof(new_book.isbn), &new_book, sizeof(new_book));   
+    }
+    fclose(input);
 }
 
 void print_isbn(hashtable_t *ht_books)
