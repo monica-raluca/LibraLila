@@ -1,5 +1,44 @@
 #include "login.h"
 
+void login(hashtable_t *mm_users, linked_list_t **preferences, char *isbn, char *key, char *password)
+{
+    if (isbn[0] == 'Y') {
+        while (!(*preferences)) {
+            printf("New Username:");
+            scanf("%s", key);
+            printf("New Password:");
+            scanf("%s", password);
+            (*preferences) = create_account(mm_users, key, password);
+            if ((*preferences)) {
+                printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+                printf("\t\tWelcome %s!\t\t\n\n", key);
+                printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+                return;
+            }
+        }
+        return;
+    }
+    else if (isbn[0] == 'N') {
+        while (!(*preferences)) {
+            printf("Username:");
+            scanf("%s", key);
+            printf("Password:");
+            scanf("%s", password);
+            (*preferences) = check_login_data(mm_users, key, password);
+            if ((*preferences)) {
+                printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+                printf("\t\tWelcome %s!\t\t\n\n", key);
+                printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+            }
+            return;
+        }
+        return;
+    } else {
+        printf("Invalid reply\n");
+        return;
+    }
+}
+
 void load_login_data(hashtable_t *mm_users)
 {
     char user[100];
@@ -48,7 +87,7 @@ void add_preferences(hashtable_t *ht_books, linked_list_t *preferences, char *is
         //     return;
         // }
         book_info = ht_get(ht_books, isbn);
-        ll_add_nth_node(preferences, 0, ((linked_list_t *)book_info->value)->head->data);
+        ll_add_nth_node(preferences, 0, book_info->value);
     } else {
         printf("ISBN is not associated with an existent book\n");
     }

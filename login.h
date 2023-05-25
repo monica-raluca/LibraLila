@@ -1,5 +1,7 @@
 #include "hashtables.h"
 
+void login(hashtable_t *mm_users, linked_list_t **preferences, char *isbn, char *key, char *password);
+
 /*
  * Procedura pentru incarcarea fisierului/fisierelor cu date de conectare si
  * initializarea listelor de preferinte ale utilizatorilor.

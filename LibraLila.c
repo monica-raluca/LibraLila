@@ -11,30 +11,6 @@ void show_instructions()
     fclose(fhelp);
 }
 
-// void log_in(char *key, char *password, hashtable_t *mm_users, linked_list_t *preferences)
-// {
-//     char isbn[11];
-//     while (1) {
-//         printf("Do you have an account? [Y/N]\n");
-//         scanf("%s", isbn);
-//         if (isbn[0] == 'Y')
-//             return;
-//         else if (isbn[0] == 'N') {
-//             printf("New Username:");
-//             scanf("%s", key);
-//             printf("New Password:");
-//             scanf("%s", password);
-//             preferences = create_account(mm_users, key, password);
-//             if (preferences) {
-//                 printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
-//                 printf("\t\tWelcome %s!\t\t\n\n", key);
-//                 printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
-//                 return;
-//             }
-//         }
-//     }
-// }
-
 int main(void)
 {
     char *key, *op, *password, isbn[11];
@@ -52,41 +28,17 @@ int main(void)
     load_csv(ht_books);
     
     linked_list_t *preferences = NULL;
-
-    // log_in(key, password, mm_users, preferences);
     
-    while (1) {
-        printf("Do you have an account? [Y/N]\n");
+    while (!preferences) {
+        printf("Do you need an account? [Y/N]\n");
         scanf("%s", isbn);
-        if (isbn[0] == 'Y')
-            break;
-        else if (isbn[0] == 'N') {
-            printf("New Username:");
-            scanf("%s", key);
-            printf("New Password:");
-            scanf("%s", password);
-            preferences = create_account(mm_users, key, password);
-            if (preferences) {
-                printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
-                printf("\t\tWelcome %s!\t\t\n\n", key);
-                printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
-                break;
-            }
-        }
+        login(mm_users, &preferences, isbn, key, password);
     }
     while (1) {
         while (!preferences) {
-            printf("Username:");
-            scanf("%s", key);
-            printf("Password:");
-            scanf("%s", password);
-            preferences = check_login_data(mm_users, key, password);
-            if (preferences) {
-                printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
-                printf("\t\tWelcome %s!\t\t\n\n", key);
-                printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
-            }
-            
+            printf("Do you want to create a new account? [Y/N]\n");
+            scanf("%s", isbn);
+            login(mm_users, &preferences, isbn, key, password);
         }
         scanf("%s", op);
         if (!strcmp(op, "EXIT")) {
@@ -117,8 +69,7 @@ int main(void)
         } else if (!strcmp(op, "BOOK_INFO")) {
             scanf("%s", isbn);
             print_isbn(ht_books, isbn);
-        }
-         else if (!strcmp(op, "DESCRIPTION")) {
+        } else if (!strcmp(op, "DESCRIPTION")) {
             scanf("%s", isbn);
             print_description(ht_books, isbn);
         } else if (!strcmp(op, "DESCRIBE")) {
