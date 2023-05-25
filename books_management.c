@@ -31,8 +31,8 @@ void print_isbn(hashtable_t *ht_books, char *isbn)
     info *book_info;
     if (ht_has_key(ht_books, isbn)) {
 		book_info = ht_get(ht_books, isbn);
-        ll_node_t* temp = ((linked_list_t *)book_info->value)->head;
-        print_book((book *)temp->data);
+        book* temp = book_info->value;
+        print_book(temp);
     }
 }
 
@@ -41,8 +41,8 @@ void print_description(hashtable_t *ht_books, char *isbn)
     info *book_info;
     if (ht_has_key(ht_books, isbn)) {
 		book_info = ht_get(ht_books, isbn);
-        ll_node_t* temp = ((linked_list_t *)book_info->value)->head;
-        printf("%s\n", ((book *)temp->data)->description);
+        book* temp = book_info->value;
+        printf("%s\n", temp->description);
     }
 }
 
@@ -52,9 +52,9 @@ void change_description(hashtable_t *ht_books, char *isbn)
     info *book_info;
     if (ht_has_key(ht_books, isbn)) {
 		book_info = ht_get(ht_books, isbn);
-        ll_node_t* temp = ((linked_list_t *)book_info->value)->head;
+        book* temp = book_info->value;
         fgets(new_description, MAX_STRING_SIZE, stdin);
-        memcpy(((book *)temp->data)->description, new_description, MAX_STRING_SIZE);
+        memcpy(temp->description, new_description, MAX_STRING_SIZE);
     }
 }
 
@@ -64,10 +64,10 @@ void rate_book(hashtable_t *ht_books, char *isbn)
     info *book_info;
     if (ht_has_key(ht_books, isbn)) {
 		book_info = ht_get(ht_books, isbn);
-        ll_node_t* temp = ((linked_list_t *)book_info->value)->head;
+        book* temp = book_info->value;
         scanf("%f", &user_rating);
-        ((book *)temp->data)->rating = (((book *)temp->data)->rating * ((book *)temp->data)->rating_count + user_rating) / (((book *)temp->data)->rating_count + 1);
-        ((book *)temp->data)->rating_count++;
+        temp->rating = (temp->rating * temp->rating_count + user_rating) / (temp->rating_count + 1);
+        temp->rating_count++;
     }
 }
 
