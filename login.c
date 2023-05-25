@@ -5,10 +5,8 @@ void load_login_data(hashtable_t *mm_users)
     char user[100];
     unsigned int pass;
     FILE *input = fopen("data/user_database.csv", "r");
-    while(fscanf(input, "%[^~]~%u\n", user, &pass) == 2) {
-        // printf("%s %u\n", user, pass);
+    while(fscanf(input, "%[^~]~%u\n", user, &pass) == 2)
         mm_put(mm_users, user, sizeof(user), &pass, sizeof(pass));
-    }
     fclose(input);
 }
 
@@ -47,7 +45,6 @@ void add_preferences(hashtable_t *ht_books, linked_list_t *preferences, char *is
         //     return;
         // }
         book_info = ht_get(ht_books, isbn);
-        // print_book((book *)(((linked_list_t *)book_info->value)->head->data));
         ll_add_nth_node(preferences, 0, ((linked_list_t *)book_info->value)->head->data);
     } else {
         printf("ISBN is not associated with an existent book\n");

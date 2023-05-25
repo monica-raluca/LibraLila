@@ -92,13 +92,6 @@ void ht_remove_entry(hashtable_t *ht, void *key);
  */
 void ht_free(hashtable_t *ht);
 
-/** mm_free() - Frees all the entries from the multimap.
- * 				Afterwards frees the multimap itself.
- *
- * @arg1: Multimap we want to free.
- */
-void mm_free(hashtable_t *ht);
-
 int compare_function_ints(void *a, void *b);
 int compare_function_floats(void *a, void *b);
 unsigned int hash_function_int(void *a);

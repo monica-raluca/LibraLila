@@ -127,8 +127,6 @@ void ll_free(linked_list_t** pp_list)
 
 	while (ll_get_size(*pp_list) > 0) {
 		currNode = ll_remove_nth_node(*pp_list, 0);
-		free(((info *)currNode->data)->key);
-		free(((info *)currNode->data)->value);
 		free(currNode->data);
 		currNode->data = NULL;
 		free(currNode);

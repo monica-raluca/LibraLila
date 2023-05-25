@@ -26,8 +26,6 @@ int main(void)
     
     load_login_data(mm_users);
     load_csv(ht_books);
-
-    // print_isbn(ht_books, isbn);
     
     linked_list_t *preferences = NULL;
     while (1) {
@@ -64,6 +62,9 @@ int main(void)
         }
         scanf("%s", op);
         if (!strcmp(op, "EXIT")) {
+            ht_free(ht_books);
+            ht_free(mm_users);
+            free(password);
             free(key);
             free(op);
             exit(0);
@@ -73,7 +74,7 @@ int main(void)
             scanf("%s", isbn);
             add_preferences(ht_books, preferences, isbn);
         } else if (!strcmp(op, "REMOVE")) {
-            scanf("%s", &isbn);
+            scanf("%s", isbn);
             remove_preferences(preferences, isbn);
         } else if (!strcmp(op, "PRINT")) {
             print_preferences(preferences);
