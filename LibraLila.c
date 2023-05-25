@@ -5,16 +5,13 @@ show_instructions()
 {
     printf("EXIT - Exit the program and free memory\n");
     printf("ADD [isbn] - Add a book on your list of preferences based on isbn");
-    printf("REMOVE [isbn] - Remove a book from your list of preferences based
-           on its isbn\n");
+    printf("REMOVE [isbn] - Remove a book from your list of preferences based on its isbn\n");
     printf("PRINT - Print the current list of preferences\n");
-    printf("SHOW [criteria_no] [criteria] - Show all the books in the library
-           based on the following criterias:\n");
+    printf("SHOW [criteria_no] [criteria] - Show all the books in the library based on the following criterias:\n");
     printf("0 - Author\n1 - Title\n2 - Genre\n3 - Release date between\n4 - Rating between\n");
-    printf("SORT [criteria_no] - Sort the books in the list of preferences by the
-           following criterias:\n");
+    printf("SORT [criteria_no] - Sort the books in the list of preferences by the following criterias:\n");
     printf("0 - Author\n1 - Title\n2 - Genre (Alphabetically)\n3 - Release date\n4 - Ratings\n");
-    printf("DESCRIPTION [isbn] - View the description of a book with a particular isbn")
+    printf("DESCRIPTION [isbn] - View the description of a book with a particular isbn");
     printf("DESCRIBE [isbn] - Add a different description to the book with a specific isbn\n");
     printf("RATE [isbn] - Add a rating to a book with the given isbn\n");
 }
