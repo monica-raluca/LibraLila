@@ -38,7 +38,7 @@ int main(void)
             scanf("%s", key);
             printf("New Password:");
             scanf("%s", password);
-            // preferences = create_account(key, password);
+            preferences = create_account(mm_users, key, password);
             if (preferences)
                 break;
         }
