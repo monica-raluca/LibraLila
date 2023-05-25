@@ -72,9 +72,9 @@ int main(void)
         } else if (!strcmp(op, "ADD")) {
             scanf("%s", isbn);
             add_preferences(ht_books, preferences, isbn);
-        // } else if (!strcmp(op, "REMOVE")) {
-        //     scanf("%s", &isbn);
-        //     remove_preferences(preferences, isbn);
+        } else if (!strcmp(op, "REMOVE")) {
+            scanf("%s", &isbn);
+            remove_preferences(preferences, isbn);
         } else if (!strcmp(op, "PRINT")) {
             print_preferences(preferences);
         // } else if (!strcmp(op, "SHOW")) {

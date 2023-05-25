@@ -39,4 +39,4 @@ void add_preferences(hashtable_t *ht_books, linked_list_t *preferences, char *is
  * Procedura ce primeste ca parametru lista de preferinte a utilizatorului si
  * isbn-ul unei carti pe care doreste sa o adauge in lista de preferinte
  */
-void remove_preference(linked_list_t *preferences, char *isbn);
+void remove_preferences(linked_list_t *preferences, char *isbn);

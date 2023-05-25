@@ -15,9 +15,12 @@ void load_login_data(hashtable_t *mm_users)
 linked_list_t *create_account(hashtable_t *mm_users, char *key, char *pass)
 {
     unsigned int hashed_pass = hash_function_string(pass);
-    mm_put(mm_users, key, strlen(key), pass, sizeof(pass));
+    mm_put(mm_users, key, strlen(key), &hashed_pass, sizeof(hashed_pass));
     hashed_pass = mm_users->hash_function(key) % mm_users->hmax;
-    return mm_users->buckets[hashed_pass];
+    FILE *database = fopen("data/user_database.csv", "a");
+    fprintf(database, "%s~%d\n", key, hashed_pass);
+    fclose(database);
+    return ((info *)mm_users->buckets[hashed_pass]->head->data)->value;
     // pentru viitor, adauga userii noi in user_database
 }
 
@@ -28,7 +31,7 @@ linked_list_t *check_login_data(hashtable_t *mm_users, char *key, char *pass)
     if (!user_info) {
         printf("Inexistent user! Try again!\n");
         return NULL;
-    } else if (*(int *)user_info->pass != hashed_pass) {
+    } else if (*(unsigned int *)user_info->pass != hashed_pass) {
         printf("Wrong credentials! Try again!\n");
         return NULL;
     }
@@ -39,8 +42,12 @@ void add_preferences(hashtable_t *ht_books, linked_list_t *preferences, char *is
 {
     info *book_info = NULL;
     if (ht_has_key(ht_books, isbn)) {
+        // if (list_has_key(preferences, isbn)) {
+        //     printf("Book was already added\n");
+        //     return;
+        // }
         book_info = ht_get(ht_books, isbn);
-        print_book((book *)(((linked_list_t *)book_info->value)->head->data));
+        // print_book((book *)(((linked_list_t *)book_info->value)->head->data));
         ll_add_nth_node(preferences, 0, ((linked_list_t *)book_info->value)->head->data);
     } else {
         printf("ISBN is not associated with an existent book\n");
@@ -50,8 +57,28 @@ void add_preferences(hashtable_t *ht_books, linked_list_t *preferences, char *is
 void print_preferences(linked_list_t *preferences)
 {
     ll_node_t *cursor = preferences->head;
-    for (int i = 0; i < preferences->size; i++) {
+    for (unsigned int i = 0; i < preferences->size; i++) {
         print_book((book *)cursor->data);
+        cursor = cursor->next;
+    }
+}
+
+void remove_preferences(linked_list_t *preferences, char *isbn)
+{
+    ll_node_t *cursor = preferences->head, *prev = NULL;
+    for (unsigned i = 0; i < preferences->size; i++) {
+        if (!strcmp(((book *)cursor->data)->isbn, isbn)) {
+            printf("found\n");
+            if (!prev)
+                preferences->head = cursor->next;
+            else
+                prev->next = cursor->next;
+            free(cursor->data);
+            free(cursor);
+            preferences->size--;
+            break;
+        }
+        prev = cursor;
         cursor = cursor->next;
     }
 }

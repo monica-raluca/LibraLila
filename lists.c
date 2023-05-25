@@ -4,7 +4,7 @@ linked_list_t *ll_create(unsigned int data_size)
 {
 	linked_list_t* ll;
 
-	ll = malloc(sizeof(*ll));
+	ll = calloc(1, sizeof(*ll));
 
 	ll->head = NULL;
 	ll->data_size = data_size;
