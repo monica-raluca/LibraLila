@@ -13,13 +13,16 @@ void load_login_data(hashtable_t *mm_users)
 linked_list_t *create_account(hashtable_t *mm_users, char *key, char *pass)
 {
     unsigned int hashed_pass = hash_function_string(pass);
+    if(ht_has_key(mm_users, key)) {
+        printf("Username already taken! Please try again!\n");
+        return NULL;
+    }
     mm_put(mm_users, key, strlen(key), &hashed_pass, sizeof(hashed_pass));
     hashed_pass = mm_users->hash_function(key) % mm_users->hmax;
     FILE *database = fopen("data/user_database.csv", "a");
     fprintf(database, "%s~%d\n", key, hashed_pass);
     fclose(database);
     return ((info *)mm_users->buckets[hashed_pass]->head->data)->value;
-    // pentru viitor, adauga userii noi in user_database
 }
 
 linked_list_t *check_login_data(hashtable_t *mm_users, char *key, char *pass)

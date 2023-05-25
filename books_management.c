@@ -60,13 +60,13 @@ void change_description(hashtable_t *ht_books, char *isbn)
 
 void rate_book(hashtable_t *ht_books, char *isbn)
 {
-    float new_rating;
+    float user_rating;
     info *book_info;
     if (ht_has_key(ht_books, isbn)) {
 		book_info = ht_get(ht_books, isbn);
         ll_node_t* temp = ((linked_list_t *)book_info->value)->head;
-        scanf("%f", &new_rating);
+        scanf("%f", &user_rating);
+        ((book *)temp->data)->rating = (((book *)temp->data)->rating * ((book *)temp->data)->rating_count + user_rating) / (((book *)temp->data)->rating_count + 1);
         ((book *)temp->data)->rating_count++;
-        ((book *)temp->data)->rating = ((book *)temp->data)->rating / ((book *)temp->data)->rating_count;
     }
 }

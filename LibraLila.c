@@ -4,12 +4,36 @@ void show_instructions()
 {
     FILE *fhelp = fopen("data/help.txt", "r");
     char buffer[MAX_STRING_SIZE];
-    for (int i = 1; i <= 19; i++) {
+    for (int i = 1; i <= 20; i++) {
         fgets(buffer, MAX_STRING_SIZE, fhelp);
         puts(buffer);
     }
     fclose(fhelp);
 }
+
+// void log_in(char *key, char *password, hashtable_t *mm_users, linked_list_t *preferences)
+// {
+//     char isbn[11];
+//     while (1) {
+//         printf("Do you have an account? [Y/N]\n");
+//         scanf("%s", isbn);
+//         if (isbn[0] == 'Y')
+//             return;
+//         else if (isbn[0] == 'N') {
+//             printf("New Username:");
+//             scanf("%s", key);
+//             printf("New Password:");
+//             scanf("%s", password);
+//             preferences = create_account(mm_users, key, password);
+//             if (preferences) {
+//                 printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+//                 printf("\t\tWelcome %s!\t\t\n\n", key);
+//                 printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+//                 return;
+//             }
+//         }
+//     }
+// }
 
 int main(void)
 {
@@ -28,6 +52,9 @@ int main(void)
     load_csv(ht_books);
     
     linked_list_t *preferences = NULL;
+
+    // log_in(key, password, mm_users, preferences);
+    
     while (1) {
         printf("Do you have an account? [Y/N]\n");
         scanf("%s", isbn);
@@ -59,6 +86,7 @@ int main(void)
                 printf("\t\tWelcome %s!\t\t\n\n", key);
                 printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
             }
+            
         }
         scanf("%s", op);
         if (!strcmp(op, "EXIT")) {
@@ -86,6 +114,9 @@ int main(void)
             sort_preferences(preferences, criteria);
         } else if (!strcmp(op, "HELP")) {
             show_instructions();
+        } else if (!strcmp(op, "BOOK_INFO")) {
+            scanf("%s", isbn);
+            print_isbn(ht_books, isbn);
         }
          else if (!strcmp(op, "DESCRIPTION")) {
             scanf("%s", isbn);
