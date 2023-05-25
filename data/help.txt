@@ -1,0 +1,19 @@
+EXIT - Exit the program and free memory
+ADD [isbn] - Add a book on your list of preferences based on isbn
+REMOVE [isbn] - Remove a book from your list of preferences based on its isbn
+PRINT - Print the current list of preferences
+SHOW [criteria_no] [criteria] - Show all the books in the library based on the following criterias:
+    0 - Author [author_name]
+    1 - Title [book_title]
+    2 - Genre [book_genre]
+    3 - Release date between [day.month.year] [date.month.year]
+    4 - Rating between [rating1] [rating2]
+SORT [criteria_no] - Sort the books in the list of preferences by the following criterias:
+    0 - Author
+    1 - Title
+    2 - Genre (Alphabetically)
+    3 - Release date (Low to High)
+    4 - Ratings
+DESCRIPTION [isbn] - View the description of a book with a particular isbn
+DESCRIBE [isbn] - Add a different description to the book with a specific isbn
+RATE [isbn] - Add a rating to a book with the given isbn
