@@ -52,5 +52,5 @@ void sort_preferences(linked_list_t *preferences, int criteria);
 
 ll_node_t *merge_sort(ll_node_t *head, int criteria);
 ll_node_t *middle(ll_node_t *head);
-ll_node_t* merge(ll_node_t* firstNode, ll_node_t* secondNode, int criteria);
+ll_node_t *merge(ll_node_t *firstNode, ll_node_t *secondNode, int criteria);
 void sort(linked_list_t *preferences, int criteria);
