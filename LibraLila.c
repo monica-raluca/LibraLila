@@ -4,7 +4,7 @@ void show_instructions()
 {
     FILE *fhelp = fopen("data/help.txt", "r");
     char buffer[MAX_STRING_SIZE];
-    for (int i = 1; i <= 20; i++) {
+    for (int i = 1; i <= 21; i++) {
         fgets(buffer, MAX_STRING_SIZE, fhelp);
         puts(buffer);
     }

@@ -1,4 +1,5 @@
 EXIT - Exit the program and free memory
+LOGOUT - Log out of the account and get sent back to login screen
 ADD [isbn] - Add a book on your list of preferences based on isbn
 REMOVE [isbn] - Remove a book from your list of preferences based on its isbn
 PRINT - Print the current list of preferences

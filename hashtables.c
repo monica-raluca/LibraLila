@@ -60,7 +60,7 @@ void mm_key_val_free_function(void *data) {
     free(((info *)data)->pass);
     linked_list_t *list = ((linked_list_t *)((info *)data)->value);
     ll_node_t *cursor = list->head, *prev = NULL;
-    for (int i = 0; i < list->size; i++) {
+    for (unsigned int i = 0; i < list->size; i++) {
         prev = cursor;
         free(cursor->data);
         cursor = cursor->next;
@@ -156,7 +156,6 @@ void mm_put(hashtable_t *ht, void *key, unsigned int key_size, void *pass, unsig
 {
     unsigned int index = ht->hash_function(key) % ht->hmax;
     linked_list_t* bucket = ht->buckets[index];
-    ll_node_t* node = bucket->head;
     info* new_info = malloc(sizeof(info));
 
     new_info->key = malloc(key_size);
