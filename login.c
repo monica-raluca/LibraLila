@@ -82,10 +82,6 @@ void add_preferences(hashtable_t *ht_books, linked_list_t *preferences, char *is
 {
     info *book_info = NULL;
     if (ht_has_key(ht_books, isbn)) {
-        // if (list_has_key(preferences, isbn)) {
-        //     printf("Book was already added\n");
-        //     return;
-        // }
         book_info = ht_get(ht_books, isbn);
         ll_add_nth_node(preferences, 0, book_info->value);
     } else {
@@ -107,7 +103,6 @@ void remove_preferences(linked_list_t *preferences, char *isbn)
     ll_node_t *cursor = preferences->head, *prev = NULL;
     for (unsigned i = 0; i < preferences->size; i++) {
         if (!strcmp(((book *)cursor->data)->isbn, isbn)) {
-            printf("found\n");
             if (!prev)
                 preferences->head = cursor->next;
             else
@@ -126,8 +121,8 @@ ll_node_t* merge(ll_node_t* firstNode, ll_node_t* secondNode, int criteria)
 {
     ll_node_t* merged = NULL;
     ll_node_t** temp = &merged;
-    int compare_result;
-    float compare_floats;
+    int compare_result = -1;
+    float compare_floats = -1;
     while (firstNode != NULL && secondNode != NULL) {
         if (criteria == 0)
             compare_result = strcmp(((book*)firstNode->data)->authors, ((book*)secondNode->data)->authors);
@@ -174,8 +169,8 @@ ll_node_t *merge_sort(ll_node_t *head, int criteria)
 {
     if (!head->next) 
         return head;
-    ll_node_t *mid = calloc(1, sizeof(ll_node_t *));
-    ll_node_t *second_head = calloc(1, sizeof(ll_node_t *));
+    ll_node_t *mid;
+    ll_node_t *second_head;
 
     mid = middle(head);
     second_head = mid->next;
