@@ -117,7 +117,7 @@ void remove_preferences(linked_list_t *preferences, char *isbn)
     }
 }
 
-ll_node_t* merge(ll_node_t* firstNode, ll_node_t* secondNode, int criteria)
+ll_node_t *merge(ll_node_t *firstNode, ll_node_t *secondNode, int criteria)
 {
     ll_node_t* merged = NULL;
     ll_node_t** temp = &merged;
